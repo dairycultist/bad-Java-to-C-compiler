@@ -11,14 +11,15 @@ public class Main {
 	public void foo() {
 		System.out.println(x);
 	}
-  
-  public static void main(String[] args) {
-  	new Main().foo();
-  }
+	
+	public static void main(String[] args) {
+		new Main().foo();
+	}
 }
 ```
 
 ```
+/* Main.h */
 typedef struct Main Main;
 struct Main {
 	int x;
@@ -27,6 +28,9 @@ struct Main {
 void Main_init(Main *self);
 void Main_foo(Main *self);
 int main(int argc, char **argv);
+
+/* Main.c */
+#include "main.h"
 
 void Main_init(Main *self) {
 	self->x = 20;
