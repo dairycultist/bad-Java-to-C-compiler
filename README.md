@@ -24,8 +24,13 @@ struct Main {
 	int x;
 };
 
+void Main_init(Main *self);
 void Main_foo(Main *self);
 int main(int argc, char **argv);
+
+void Main_init(Main *self) {
+	self->x = 20;
+}
 
 void Main_foo(Main *self) {
 	printf(“%d\n”, self->x);
@@ -34,8 +39,7 @@ void Main_foo(Main *self) {
 int main(int argc, char **argv) {
 	{
 		Main temp;
-		temp.x = 20;
-
+		Main_init(&temp);
 		Main_foo(&temp);
 	}
 }
