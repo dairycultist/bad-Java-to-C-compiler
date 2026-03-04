@@ -9,17 +9,23 @@ if (filepaths.length == 0) {
 
 try {
 	
-	console.log(tokenize(fs.readFileSync(filepaths[0], "utf8")));
+	console.log(
+		tokenize(
+			sanitize(
+				fs.readFileSync(filepaths[0], "utf8")
+			)
+		)
+	);
 
 } catch (err) {
 	console.error("Error reading file:", err);
 }
 
-function tokenize(string) {
+function sanitize(string) {
 
 	// remove comments
 	string = string.replaceAll(new RegExp("\/\/[^\n]*\n?$", "gm"), "");
-	string = string.replaceAll(new RegExp("\/\*.*?\\*\/", "gs"), "");
+	string = string.replaceAll(new RegExp("\/\\*.*?\\*\/", "gs"), "");
 
 	// convert all sequences of whitespace-type characters into a single space for convenience
 	string = string.replaceAll(/\s+/g, " ");
@@ -27,5 +33,9 @@ function tokenize(string) {
 	// trim
 	string = string.trim();
 
+	return string;
+}
+
+function tokenize(string) {
 	return [ string ];
 }
