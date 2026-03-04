@@ -4,6 +4,8 @@
 // java Main
 
 public class Main {
+
+	/* initialization doesn't have to occur in a constructor */
 	int x = 20;
 	
 	public void foo() {
