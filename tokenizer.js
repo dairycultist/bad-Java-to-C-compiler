@@ -1,6 +1,6 @@
 class Token {
 
-	constructor(type = "", value = "") {
+	constructor(type = "", value = undefined) {
 		this.type = type;
 		this.value = value;
 	}
@@ -16,9 +16,25 @@ function tokenize(string) {
 
 		let match;
 
-		if (match = string.match(/^public|private|protected|default/)) {
+		if (match = string.match(/^public|^private|^protected|^default/)) {
 
 			tokens.push(new Token("access modifier", match[0]));
+		
+		} else if (match = string.match(/^class|^enum/)) {
+
+			tokens.push(new Token("classdef", match[0]));
+
+		} else if (match = string.match(/^{|^}|^boolean|^byte|^short|^int|^long|^float|^double|^char|^=|^;/)) {
+
+			tokens.push(new Token(match[0]));
+
+		} else if (match = string.match(/^-?[0-9]+(\.[0-9]*)?/)) {
+
+			tokens.push(new Token("number", match[0]));
+
+		}else if (match = string.match(/^[A-Za-z_$][A-Za-z0-9_$]*/)) {
+
+			tokens.push(new Token("name", match[0])); // variable and type names
 
 		} else {
 
